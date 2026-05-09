@@ -1,0 +1,156 @@
+<div class="topbar">
+  <div class="logo">STEP RAILWAY</div>
+
+  <button class="btn-primary" routerLink="/checkticket">
+    ბილეთის შემოწმება/დაბრუნება
+  </button>
+</div>
+
+<div class="hero">
+  <h2>მგზავრების მონაცემები</h2>
+</div>
+
+<div class="content">
+
+  <!-- LEFT -->
+  <div class="main-col">
+
+    <div class="card" *ngIf="loading">
+      <p>იტვირთება...</p>
+    </div>
+
+    <div class="card error" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <div class="card" *ngIf="!loading && train">
+
+      <div class="section-title">შეიყვანეთ თქვენი მონაცემები</div>
+
+      <div class="train-row">
+        <div>
+          <div class="train-id">#{{ train.number }}</div>
+          <div class="train-name">{{ train.name }}</div>
+        </div>
+
+        <div>
+          <div class="train-time">{{ train.departure }}</div>
+          <div class="train-station">{{ train.from }}</div>
+        </div>
+
+        <div>
+          <div class="train-time">{{ train.arrive }}</div>
+          <div class="train-station">{{ train.to }}</div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- CONTACT -->
+      <div class="section-title">საკონტაქტო ინფორმაცია</div>
+
+      <div class="form-row">
+        <input class="form-input" type="email" placeholder="იმეილი" [(ngModel)]="email" />
+        <input class="form-input" type="tel" placeholder="ტელეფონი" [(ngModel)]="phone" />
+      </div>
+
+      <hr class="divider" />
+
+      <!-- WAGON -->
+      <div class="form-row">
+        <select class="form-input" [(ngModel)]="selectedVagonId">
+          <option value="" disabled>ვაგონი</option>
+          <option *ngFor="let v of train.vagons" [value]="v.id">
+            {{ v.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="section-title">მგზავრები</div>
+
+      <div class="passenger-block" *ngFor="let p of passengers; let i = index">
+
+        <div class="passenger-title">მგზავრი {{ i + 1 }}</div>
+
+        <div class="passenger-row">
+
+          <span class="btn-seat">
+            ადგილი: {{ p.seatId || 'არ არის არჩეული' }}
+          </span>
+
+          <input class="form-input" placeholder="სახელი" [(ngModel)]="p.firstName" />
+          <input class="form-input" placeholder="გვარი" [(ngModel)]="p.lastName" />
+          <input class="form-input" placeholder="პირადი ნომერი" [(ngModel)]="p.idNumber" />
+
+          <button
+            class="btn-choose"
+            [disabled]="!selectedVagonId"
+            (click)="chooseSeat(i)"
+          >
+            ადგილის არჩევა
+          </button>
+
+        </div>
+      </div>
+
+
+      <div class="baggage-grid">
+        <div class="baggage-item">Personal Item</div>
+        <div class="baggage-item">Carry-on bag</div>
+        <div class="baggage-item">Checked Bags</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="side-col">
+    <div class="card invoice-card">
+
+      <div class="invoice-title">ინვოისი</div>
+
+      <div class="invoice-header">
+        <span>ადგილი</span>
+        <span>ფასი</span>
+      </div>
+
+      <div class="invoice-total">
+        <span>სულ:</span>
+        <span>{{ total.toFixed(2) }}₾</span>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" [(ngModel)]="agreeToTerms" />
+        <label>ვეთანხმები წესებს</label>
+      </div>
+
+      <button class="btn-register" (click)="register()">
+        ბილეთის რეგისტრაცია
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="seat-popup" *ngIf="showSeatPopup">
+  <div class="seat-popup-content">
+
+    <h3>აირჩიეთ ადგილი</h3>
+
+    <div class="seat-grid">
+      <button
+        *ngFor="let seat of availableSeats"
+        (click)="selectSeat(seat)"
+        class="seat-btn"
+      >
+        {{ seat.number }}
+      </button>
+    </div>
+
+    <button class="close-btn" (click)="closeSeatPopup()">
+      დახურვა
+    </button>
+
+  </div>
+</div>

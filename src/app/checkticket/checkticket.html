@@ -1,0 +1,64 @@
+<nav class="sr-nav">
+  <div class="sr-logo">STEP <span>RAILWAY</span></div>
+</nav>
+
+<section class="sr-hero">
+  <div class="hero-eyebrow">
+    <span class="hero-dot"></span>
+    ბილეთის მართვა
+  </div>
+  <h1>ბილეთის შემოწმება / დაბრუნება</h1>
+</section>
+
+<div class="sr-content">
+  <div class="ticket-card">
+    <p class="card-label">შეიყვანეთ ბილეთის კოდი</p>
+
+    <div class="form-row">
+      <input
+        class="sr-input"
+        type="text"
+        placeholder="მაგ. TK-20489"
+        [(ngModel)]="ticketId"
+      />
+      <button class="btn-check" (click)="checkTicket()">შემოწმება</button>
+    </div>
+
+    <div *ngIf="ticket" class="result-box">
+      <div class="result-header">
+        <span class="result-header-label">ბილეთი #{{ ticketId }}</span>
+        <span class="badge"
+          [ngClass]="{
+            'badge-confirmed': ticket.status === 'CONFIRMED',
+            'badge-pending':   ticket.status === 'PENDING',
+            'badge-cancelled': ticket.status === 'CANCELLED'
+          }">
+          {{ ticket.status }}
+        </span>
+      </div>
+
+      <div class="result-body">
+        <div class="result-row">
+          <span class="row-label">მგზავრი</span>
+          <span class="row-value">{{ ticket.passengerName }}</span>
+        </div>
+        <div class="result-row">
+          <span class="row-label">მარშრუტი</span>
+          <span class="row-value">{{ ticket.from }} → {{ ticket.to }}</span>
+        </div>
+        <div class="result-row">
+          <span class="row-label">თარიღი</span>
+          <span class="row-value">{{ ticket.date }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="ticket.status !== 'CANCELLED'" class="result-footer">
+        <button class="btn-cancel" (click)="cancelTicket()">
+          ბილეთის დაბრუნება
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error-box">{{ error }}</div>
+  </div>
+</div>

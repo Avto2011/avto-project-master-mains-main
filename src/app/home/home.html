@@ -1,0 +1,111 @@
+<nav class="sr-nav">
+  <div class="sr-logo">STEP <span>RAILWAY</span></div>
+
+  <div class="nav-actions">
+    <button class="btn-ghost" routerLink="/checkticket">
+      ბილეთის შეძენა/დაბრუნება
+    </button>
+
+    <button
+      *ngIf="!auth.isLoggedIn()"
+      class="btn-primary"
+      routerLink="/login">
+      შესვლა
+    </button>
+
+    <button
+      *ngIf="auth.isLoggedIn()"
+      class="btn-primary btn-danger"
+      (click)="logout()">
+      გასვლა
+    </button>
+  </div>
+</nav>
+
+<section class="sr-hero">
+  <div class="hero-eyebrow">
+    <span class="hero-dot"></span>
+    ონლაინ ჯავშანი
+  </div>
+  <h1>შეიძინეთ მატარებლის ბილეთები ონლაინ</h1>
+  <p>გისურვებთ მშვიდ და სასიამოვნო მგზავრობას</p>
+</section>
+
+<section class="sr-search">
+  <div class="search-card">
+    <p class="search-label">დაჯავშნეთ მატარებლის ბილეთი</p>
+
+    <div class="search-row">
+      <div class="field-group">
+        <span class="field-label">საიდან</span>
+        <select class="sr-select" [(ngModel)]="fromStation">
+          <option value="">სადგური...</option>
+          <option *ngFor="let s of stations" [value]="s.name">{{ s.name }}</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <span class="field-label">სად</span>
+        <select class="sr-select" [(ngModel)]="toStation">
+          <option value="">სადგური...</option>
+          <option *ngFor="let s of stations" [value]="s.name">{{ s.name }}</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <span class="field-label">თარიღი</span>
+        <input type="date" class="sr-input" [(ngModel)]="date" />
+      </div>
+
+      <div class="field-group">
+        <span class="field-label">მგზავრები</span>
+        <input
+          type="number"
+          min="1"
+          max="4"
+          [(ngModel)]="passengerCount"
+          placeholder="რაოდენობა"
+          class="sr-input"
+        />
+      </div>
+
+      <button class="btn-search" (click)="search()">მოძებნა</button>
+    </div>
+  </div>
+</section>
+
+<section class="sr-content">
+  <div class="content-img-wrap">
+    <img
+      src="https://railway.stepprojects.ge/assets/img/train/trainticket.png"
+      alt="train ticket"
+    />
+  </div>
+
+  <div class="info-section">
+    <h2>მატარებლის ბილეთები</h2>
+    <p class="info-desc">
+      რკინიგზის ბილეთების შესაძენად თქვენ დაგჭირდებათ თითოეული
+      მგზავრის პირადი ნომერი. გთხოვთ მოამზადოთ ეს ინფორმაცია წინასწარ.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">∞</div>
+        შეუზღუდავი შეთავაზებები
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">24</div>
+        24/7 მხარდაჭერა
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        100% უსაფრთხო
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">₾</div>
+        უსაფრთხო გადახდა
+      </div>
+    </div>
+  </div>
+</section>

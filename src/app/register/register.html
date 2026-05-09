@@ -1,0 +1,66 @@
+<div class="wrap">
+  <div class="card">
+
+    <div class="logo-line">
+      <div class="logo-dot"></div>
+      <span class="logo-text">myapp</span>
+    </div>
+
+    <h2>Create account</h2>
+    <p class="subtitle">Fill in your details to get started</p>
+
+    <form #myForm="ngForm" (ngSubmit)="register(myForm.value)">
+
+      <div class="row">
+        <div class="field">
+          <label>First name</label>
+          <input type="text" name="firstName" ngModel required />
+        </div>
+
+        <div class="field">
+          <label>Last name</label>
+          <input type="text" name="lastName" ngModel required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" ngModel required />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" ngModel required minlength="8" />
+      </div>
+
+      <button class="btn-register" [disabled]="myForm.invalid">
+        Register
+      </button>
+
+      <button  routerLink="/login" class="login-link">
+        Already have an account? Login
+      </button>
+
+    </form>
+
+    @if (showVerifyInput) {
+      <div class="divider"></div>
+
+      <div class="verify-section">
+        <div class="verify-label">Verification code sent to your email</div>
+
+        <div class="verify-row">
+          <input
+            type="text"
+            [(ngModel)]="code"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="000000"
+            maxlength="6"
+          />
+          <button class="btn-verify" (click)="verify()">Verify</button>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

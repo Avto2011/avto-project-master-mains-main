@@ -1,0 +1,44 @@
+<nav class="navbar">
+  <div class="navbar-logo">STEP RAILWAY</div>
+  <button class="navbar-btn" routerLink="/checkticket">ბილეთის შეძენა/დაბრუნება</button>
+</nav>
+
+<section class="container">
+  <h3>მატარებლების ჩამონათვალი</h3>
+
+  <div class="table-header">
+    <span>მატარებელი</span>
+    <span>გამგზავრება</span>
+    <span>ჩასვლა</span>
+    <span></span>
+  </div>
+
+  <div *ngFor="let route of trains">
+    <div *ngFor="let train of route.trains" class="train-card">
+
+      <div>
+        <p>#{{ train.number }}</p>
+        <small>{{ train.name }}</small>
+      </div>
+
+      <div>
+        <p>{{ train.departure }}</p>
+        <small>{{ train.from }}</small>
+      </div>
+
+      <div>
+        <p>{{ train.arrive }}</p>
+        <small>{{ train.to }}</small>
+      </div>
+
+     
+      <button (click)="selectTrain(train)">დაჯავშნა</button>
+
+    </div>
+  </div>
+
+  <div *ngIf="!loading && trains.length === 0">
+    ❗ მატარებლები ვერ მოიძებნა
+  </div>
+
+</section>
