@@ -31,6 +31,11 @@ body {
   align-items: center;
   justify-content: space-between;
 
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+    height: 52px;
+  }
+
   .logo {
     font-size: 15px;
     font-weight: 600;
@@ -51,6 +56,11 @@ body {
   &:hover {
     background: $blue-dark;
   }
+
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }
 
 /* ---------------- HERO ---------------- */
@@ -58,6 +68,10 @@ body {
 .hero {
   background: $blue;
   padding: 2rem 2rem 3.5rem;
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 1rem 3rem;
+  }
 
   h2 {
     color: white;
@@ -76,6 +90,15 @@ body {
   display: grid;
   grid-template-columns: 1fr 280px;
   gap: 1.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 1rem 2rem;
+    gap: 1rem;
+  }
 }
 
 /* ---------------- CARD ---------------- */
@@ -85,6 +108,11 @@ body {
   border-radius: $radius-lg;
   border: 1px solid $border;
   padding: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 1rem;
+    border-radius: $radius;
+  }
 }
 
 /* ---------------- SECTIONS ---------------- */
@@ -110,6 +138,12 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
 
   .train-id {
     font-size: 13px;
@@ -141,6 +175,10 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .form-input {
@@ -178,6 +216,23 @@ body {
   grid-template-columns: auto 1fr 1fr 1fr auto;
   gap: 8px;
   align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+
+    .btn-seat {
+      grid-column: 1 / -1;
+      text-align: left;
+    }
+
+    .btn-choose {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -211,6 +266,10 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-top: 1rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .baggage-item {
@@ -257,6 +316,10 @@ body {
 .invoice-card {
   position: sticky;
   top: 1rem;
+
+  @media (max-width: 900px) {
+    position: static;
+  }
 
   .invoice-title {
     font-size: 15px;
@@ -333,17 +396,24 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  padding: 1rem;
 }
 
 .seat-popup-content {
   width: 420px;
+  max-width: 100%;
   max-height: 70vh;
   overflow-y: auto;
   background: white;
   border-radius: $radius-lg;
   padding: 1.5rem;
   border: 1px solid $border;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  @media (max-width: 480px) {
+    padding: 1.25rem 1rem;
+    border-radius: $radius;
+  }
 
   h3 {
     font-size: 15px;
@@ -358,6 +428,10 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+
+  @media (max-width: 360px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ---------------- SEAT BUTTON ---------------- */
@@ -378,7 +452,6 @@ body {
   }
 }
 
-
 .close-btn {
   margin-top: 1rem;
   width: 100%;
@@ -391,5 +464,15 @@ body {
 
   &:hover {
     background: #e6e6e6;
+  }
+}
+
+.seat-btn.seat-selected {
+  background-color: #e53935;
+  color: #fff;
+  border-color: #c62828;
+
+  &:hover {
+    background-color: #c62828;
   }
 }

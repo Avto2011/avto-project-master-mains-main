@@ -32,14 +32,13 @@ export class Tickets implements OnInit {
 
   selectedVagonId: number | null = null;
 
-  passengers: Passenger[] = [
-    { seatId: '', seatLabel: '', seatPrice: 0, firstName: '', lastName: '', idNumber: '' },
-    { seatId: '', seatLabel: '', seatPrice: 0, firstName: '', lastName: '', idNumber: '' },
-  ];
+  passengers: Passenger[] = [];
 
   availableSeats: any[] = [];
   showSeatPopup = false;
   currentPassengerIndex: number | null = null;
+
+  selectedSeatIds: Set<string> = new Set();
 
   constructor(
     private api: TicketService,
@@ -63,8 +62,6 @@ export class Tickets implements OnInit {
       idNumber: '',
     }));
   }
-
-
 
   chooseSeat(index: number): void {
     if (!this.selectedVagonId) return;
@@ -100,16 +97,21 @@ export class Tickets implements OnInit {
     if (this.currentPassengerIndex === null) return;
 
     const i = this.currentPassengerIndex;
+    const newSeatId = seat.id || seat.seatId;
+
+    const prevSeatId = this.passengers[i].seatId;
+    if (prevSeatId) this.selectedSeatIds.delete(prevSeatId);
+
+    this.selectedSeatIds.add(newSeatId);
 
     this.passengers[i] = {
       ...this.passengers[i],
-      seatId: seat.id || seat.seatId,
+      seatId: newSeatId,
       seatLabel: seat.number,
       seatPrice: Number(seat.price) || 0,
     };
 
     this.passengers = [...this.passengers];
-
     this.closeSeatPopup();
   }
 
@@ -119,16 +121,11 @@ export class Tickets implements OnInit {
     this.currentPassengerIndex = null;
   }
 
-
-
-get total(): number {
-  return this.passengers.reduce((sum, p) => sum + (Number(p.seatPrice) || 0), 0);
-}
-
-
+  get total(): number {
+    return this.passengers.reduce((sum, p) => sum + (Number(p.seatPrice) || 0), 0);
+  }
 
   register(): void {
-
     if (!this.train) return;
 
     const valid = this.passengers.filter(p => p.seatId);

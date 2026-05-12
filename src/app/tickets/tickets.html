@@ -143,6 +143,7 @@
         *ngFor="let seat of availableSeats"
         (click)="selectSeat(seat)"
         class="seat-btn"
+        [class.seat-selected]="selectedSeatIds.has(seat.id || seat.seatId)"
       >
         {{ seat.number }}
       </button>

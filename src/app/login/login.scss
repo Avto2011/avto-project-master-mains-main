@@ -207,3 +207,12 @@ h2 {
     text-decoration: underline;
   }
 }
+@media (max-width: 360px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 2rem 1.25rem;
+  }
+}
